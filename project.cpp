@@ -1,17 +1,8 @@
-// Student Management System
-// According to RTU syllabus (OOP concepts in C++)
-// Uses only <iostream> and <fstream>
-// Uses cin instead of getline
-// No bool, written in simple human style
-
 #include <iostream>
 #include <fstream>
 #include <string.h>
 using namespace std;
 
-// ----------------------------
-// Base class Person
-// ----------------------------
 class Person {
 protected:
     char name[50];
@@ -27,18 +18,14 @@ public:
     }
 };
 
-// ----------------------------
-// Derived class Student
-// ----------------------------
 class Student : public Person {
 private:
     int rollNo;
     char branch[30];
     float marks;
-    static int count;   // static data member
+    static int count;
 
 public:
-    // Constructors
     Student() {
         rollNo = 0;
         strcpy(branch, "");
@@ -54,10 +41,8 @@ public:
         count++;
     }
 
-    // Inline function
     inline void setMarks(float m) { marks = m; }
 
-    // Member function to input data
     void input() {
         cout << "\nEnter Roll No: ";
         cin >> rollNo;
@@ -72,7 +57,6 @@ public:
         count++;
     }
 
-    // Display data
     void display() {
         cout << "\nRoll No: " << rollNo;
         cout << "\nName: " << name;
@@ -81,15 +65,12 @@ public:
         cout << "\nMarks: " << marks << endl;
     }
 
-    // Friend function
     friend void updateMarks(Student &s, float bonus);
 
-    // Static function
     static void showCount() {
         cout << "\nTotal Students Added: " << count << endl;
     }
 
-    // File handling
     void writeToFile() {
         ofstream fout("students.txt", ios::app);
         fout << rollNo << " " << name << " " << age << " " << branch << " " << marks << endl;
@@ -116,30 +97,23 @@ public:
         fin.close();
     }
 
-    // Operator overloading
     Student operator+(Student s2) {
         Student temp;
         temp.marks = (marks + s2.marks) / 2;
         return temp;
     }
 
-    // Destructor
     ~Student() {
         // cout << "Destructor called for Roll No: " << rollNo << endl;
     }
 };
 
-// Initialize static member
 int Student::count = 0;
 
-// Friend function definition
 void updateMarks(Student &s, float bonus) {
     s.marks = s.marks + bonus;
 }
 
-// ----------------------------
-// Derived class Scholar (Inheritance Demo)
-// ----------------------------
 class Scholar : public Student {
 private:
     int researchScore;
@@ -155,17 +129,11 @@ public:
     }
 };
 
-// ----------------------------
-// Template Example
-// ----------------------------
 template <class T>
 T findMax(T a, T b) {
     return (a > b) ? a : b;
 }
 
-// ----------------------------
-// Exception Handling Example
-// ----------------------------
 void divideMarks(float total, float subjects) {
     try {
         if (subjects == 0)
@@ -177,9 +145,6 @@ void divideMarks(float total, float subjects) {
     }
 }
 
-// ----------------------------
-// Main Function
-// ----------------------------
 int main() {
     Student s[100];
     int n = 0, choice;
@@ -244,8 +209,9 @@ int main() {
             Student::showCount();
         }
 
-    } while (choice != 11); // ✅ Properly closes the do-while loop
+    } while (choice != 11); 
 
     cout << "\nProgram Ended.\n";
     return 0;
 }
+
